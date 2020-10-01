@@ -14,7 +14,6 @@ app.get("/", (req, res) => {
 
     http.get(requestOptions,(res)=>{
         res.on('data', d => {
-            process.stdout.write(d);
             console.log(d);
             serv2 = d;
             //store the response we received from service 2 
