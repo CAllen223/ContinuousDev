@@ -1,6 +1,7 @@
 FROM node:10
 WORKDIR /usr/src/original
 COPY package.json .
-RUN npm install  
+RUN npm install
 COPY . .
-CMD [ "node", "orig.js"]  
+RUN ls -l node_modules
+CMD [ "node", "orig.js"]

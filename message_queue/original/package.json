@@ -6,6 +6,6 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "amqplib": "0.60"
+        "amqplib": "latest"
     }
   }
