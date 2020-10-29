@@ -1,0 +1,11 @@
+{
+    "name": "intermediate",
+    "version": "1.0.0",
+    "description": "",
+    "main": "interm.js",
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "amqplib": "latest"
+    }
+  }

@@ -1,0 +1,7 @@
+---
+services:
+  interm:
+    build: ./intermediate
+  orig:
+    build: ./original
+version: "3"
