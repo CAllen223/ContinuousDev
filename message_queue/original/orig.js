@@ -1,6 +1,6 @@
 const amqp = require('amqplib/callback_api');
 var x =1;
-amqp.connect('amqp://localhost', function(error0, connection) {
+amqp.connect('amqp://rabbitmq:35672', function(error0, connection) {
     if (error0) {
         throw error0;
       }

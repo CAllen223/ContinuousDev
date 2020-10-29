@@ -1,5 +1,18 @@
----
 services:
+  rabbitmq:
+         image: rabbitmq:3-management-alpine
+         container_name: rabbitmq
+         volumes:
+             - ./.docker/rabbitmq/etc/:/etc/rabbitmq/message_queue
+             - ./.docker/rabbitmq/data/:/var/lib/rabbitmq/message_queue
+             - ./.docker/rabbitmq/logs/:/var/log/rabbitmq/message_queue
+         environment:
+             RABBITMQ_ERLANG_COOKIE: ${my_cookie}
+             RABBITMQ_DEFAULT_USER: ${guest}
+             RABBITMQ_DEFAULT_PASS: ${guest}
+         ports:
+             - 35672:35672
+             - 15672:15672
   interm:
     build: ./intermediate
   orig:
