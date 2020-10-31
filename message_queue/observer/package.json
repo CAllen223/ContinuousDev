@@ -1,0 +1,11 @@
+{
+    "name": "observer",
+    "version": "1.0.0",
+    "description": "Sub for all",
+    "main": "obs.js",
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "amqplib": "latest"
+    }
+}
