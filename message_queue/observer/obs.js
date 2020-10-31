@@ -1,4 +1,5 @@
 var amqp = require('amqplib/callback_api');
+const fs = require('fs');
 
 amqp.connect('amqp://guest:guest@rabbitmqs:5672', function(error0, connection) {
   if (error0) {
@@ -31,6 +32,7 @@ amqp.connect('amqp://guest:guest@rabbitmqs:5672', function(error0, connection) {
 
       channel.consume(q.queue, function(msg) {
         console.log(" [x] %s:'%s'", msg.fields.routingKey, msg.content.toString());
+        fs.writeFileSync('/var/log/obs.log', msg.content.toString());
       }, {
         noAck: true
       });
