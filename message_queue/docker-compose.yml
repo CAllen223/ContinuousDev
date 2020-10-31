@@ -1,5 +1,5 @@
---- 
-  
+---
+
   services:
    orig:
      build: ./original
@@ -10,8 +10,8 @@
      build: ./intermediate
      depends_on:
         - rabbitmqs
-     command: bash -c "/usr/wait-for-it.sh --timeout=0 rabbitmqs:5672 && node interm.js"
-   
+     command: bash -c "/usr/wait-for-it.sh --timeout=0 rabbitmqs:5672 && sleep 1 && node interm.js"
+
    rabbitmqs:
          image: rabbitmq:3-management-alpine
          container_name: rabbitmqs
@@ -24,12 +24,10 @@
              RABBITMQ_DEFAULT_PASS: "guest"
          ports:
              - 5672:5672
-             - 15672:15672 
+             - 15672:15672
          healthcheck:
           test: [ "CMD", "nc", "-z", "localhost", "5672" ]
           interval: 5s
           timeout: 15s
           retries: 1
-  version: "3" 
-  
-
+  version: "3"
