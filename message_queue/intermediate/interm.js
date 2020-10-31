@@ -1,6 +1,6 @@
 const amqp = require('amqplib');
 
-amqp.connect('amqp://guest:guest@localhost:5672', function(error0, connection) {
+amqp.connect('amqp://guest:guest@rabbitmqs:5672', function(error0, connection) {
   if (error0) {
     throw error0;
   }
@@ -8,7 +8,7 @@ amqp.connect('amqp://guest:guest@localhost:5672', function(error0, connection) {
     if (error1) {
       throw error1;
     }
-    var exchange = 'node_exchange';
+    var exchange = "node_exchange";
     var key = "my.o"	
     channel.assertExchange(exchange, 'topic', {
       durable: false

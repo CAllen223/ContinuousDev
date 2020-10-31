@@ -1,27 +1,35 @@
+--- 
+  
   services:
-  interm:
-    build: ./intermediate
-    depends_on:
-        - rabbitmq
-    command: bash -c "/usr/wait-for-it.sh --timeout=0 rabbitmq:5672"
-  orig:
-    build: ./original
-    depends_on:
-        - rabbitmq
-    command: bash -c "/usr/wait-for-it.sh --timeout=0 rabbitmq:5672"
-  rabbitmq:
+   orig:
+     build: ./original
+     depends_on:
+        - rabbitmqs
+     command: bash -c "/usr/wait-for-it.sh --timeout=0 rabbitmqs:5672 && node orig.js"
+   interm:
+     build: ./intermediate
+     depends_on:
+        - rabbitmqs
+     command: bash -c "/usr/wait-for-it.sh --timeout=0 rabbitmqs:5672 && node interm.js"
+   
+   rabbitmqs:
          image: rabbitmq:3-management-alpine
-         container_name: rabbitmq
+         container_name: rabbitmqs
          volumes:
              - ./.docker/rabbitmq/etc/:/etc/rabbitmq/message_queue
              - ./.docker/rabbitmq/data/:/var/lib/rabbitmq/message_queue
              - ./.docker/rabbitmq/logs/:/var/log/rabbitmq/message_queue
          environment:
-             RABBITMQ_ERLANG_COOKIE: ${my_cookie}
-             RABBITMQ_DEFAULT_USER: ${guest}
-             RABBITMQ_DEFAULT_PASS: ${guest}
+             RABBITMQ_DEFAULT_USER: "guest"
+             RABBITMQ_DEFAULT_PASS: "guest"
          ports:
-             - 35672:35672
-             - 15672:15672
+             - 5672:5672
+             - 15672:15672 
+         healthcheck:
+          test: [ "CMD", "nc", "-z", "localhost", "5672" ]
+          interval: 5s
+          timeout: 15s
+          retries: 1
+  version: "3" 
+  
 
-version: "3"
