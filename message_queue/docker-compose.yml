@@ -1,4 +1,14 @@
-services:
+  services:
+  interm:
+    build: ./intermediate
+    depends_on:
+        - rabbitmq
+    command: bash -c "/usr/wait-for-it.sh --timeout=0 rabbitmq:5672"
+  orig:
+    build: ./original
+    depends_on:
+        - rabbitmq
+    command: bash -c "/usr/wait-for-it.sh --timeout=0 rabbitmq:5672"
   rabbitmq:
          image: rabbitmq:3-management-alpine
          container_name: rabbitmq
@@ -13,8 +23,5 @@ services:
          ports:
              - 35672:35672
              - 15672:15672
-  interm:
-    build: ./intermediate
-  orig:
-    build: ./original
+
 version: "3"

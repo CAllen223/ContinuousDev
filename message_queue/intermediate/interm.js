@@ -1,6 +1,6 @@
-const amqp = require('amqplib/callback_api');
+const amqp = require('amqplib');
 
-amqp.connect('amqp://rabbitmq:35672', function(error0, connection) {
+amqp.connect('amqp://guest:guest@localhost:5672', function(error0, connection) {
   if (error0) {
     throw error0;
   }
@@ -8,22 +8,29 @@ amqp.connect('amqp://rabbitmq:35672', function(error0, connection) {
     if (error1) {
       throw error1;
     }
-    setTimeout(function(){},1000);
     var exchange = 'node_exchange';
+    var key = "my.o"	
     channel.assertExchange(exchange, 'topic', {
       durable: false
     });
 
-    channel.assertQueue(queue, {
-      durable: false
-    });
-    channel.prefetch(1);
-    channel.bindQueue(q.queue, exchange, key);
-    
-    channel.consume(queue, function(msg) {
+    channel.assertQueue('', {
+      exclusive: true
+    }, function(error2, q) {
+      if (error2) {
+        throw error2;
+      }
+      console.log(' [*] Waiting for logs. To exit press CTRL+C');
 
-        console.log("Received '%s'", msg.content.toString());
-  
+      
+        channel.bindQueue(q.queue, exchange, key);
+      
+
+      channel.consume(q.queue, function(msg) {
+        console.log(" [x] %s:'%s'", msg.fields.routingKey, msg.content.toString());
+      }, {
+        noAck: true
+      });
+    });
   });
-});
 });
