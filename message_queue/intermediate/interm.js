@@ -1,5 +1,5 @@
 var amqp = require('amqplib/callback_api');
-
+var temp = null;
 amqp.connect('amqp://guest:guest@rabbitmqs:5672', function(error0, connection) {
   if (error0) {
     throw error0;
@@ -10,6 +10,7 @@ amqp.connect('amqp://guest:guest@rabbitmqs:5672', function(error0, connection) {
     }
     var exchange = "node_exchange";
     var key = "my.o"
+    var key2 = "my.i"
     channel.assertExchange(exchange, 'topic', {
       durable: true
     });
@@ -20,8 +21,8 @@ amqp.connect('amqp://guest:guest@rabbitmqs:5672', function(error0, connection) {
 
       if (error2) {
         throw error2;
-      }
-      console.log(' [*] Waiting for logs. To exit press CTRL+C');
+      }//lets us know that it's running
+      console.log('HERE');
 
 
         channel.bindQueue(q.queue, exchange, key);
@@ -29,7 +30,15 @@ amqp.connect('amqp://guest:guest@rabbitmqs:5672', function(error0, connection) {
 
       channel.consume(q.queue, function(msg) {
         console.log(" [x] %s:'%s'", msg.fields.routingKey, msg.content.toString());
-      }, {
+        temp = msg.content.toString();
+        if(temp!=null){//only publish to the channel when we have a new message from the queue
+        channel.publish(exchange,key2,Buffer.from("Got"+temp.toString()));
+        console.log("published message");
+        temp = null;
+        }
+      }, 
+      
+      {
         noAck: true
       });
     });

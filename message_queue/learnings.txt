@@ -1,0 +1,8 @@
+The main benefits in my mind of the topic based response is that you can control who can get your messages better, 
+like sending one that only some of your contacts are meant to see, and to avoid the work that would come along with it.Aside from this 
+you have the rabbitmw interface where you can test your connections before you implement them and bind queues to the exchanges there, as 
+well as monitor connections made from scripts.
+
+My main learnings from this assignment was how to use the rabibtmq technology, and further understanding of how docker-compose works.
+The hardest part was learning how to read and write to files in the docker container, as well as timing the services so that they don't 
+try to access something that isn't ready yet. For this end I used a 3rd part solution the wait-for-it.sh  

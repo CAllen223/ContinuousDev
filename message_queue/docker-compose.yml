@@ -15,7 +15,15 @@
      build: ./observer
      depends_on:
         - rabbitmqs
+     volumes:
+      - data-volume:/var/lib/observer
      command: bash -c "/usr/wait-for-it.sh --timeout=0 rabbitmqs:5672 && sleep 1 && node obs.js"
+   httpserver:
+     build: ./http
+     volumes:
+      - data-volume:/var/lib/observer
+     ports:
+       - 8080:8080
    rabbitmqs:
          image: rabbitmq:3-management-alpine
          container_name: rabbitmqs
@@ -34,4 +42,6 @@
           interval: 5s
           timeout: 15s
           retries: 1
-  version: "3"
+  volumes:
+   data-volume:       
+  version: "3.2"
