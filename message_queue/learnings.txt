@@ -1,6 +1,0 @@
-all api features implemented aside from  PUT /state. Reason for this is that trying to create the channel to consume the amqp messages sent by
-the api causes an error: inequivalent arg 'auto_delete' for queue. Note that trying to get logs from the httpserv will cause that service to crash as 
-with the orig service being modified for this assignment to only send messages after it has first consumed the channel. This means that the observer does not create the file that 
-the httpserv needs.
-
-None of the optional features implemented nor a test fie or framework
