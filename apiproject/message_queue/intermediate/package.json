@@ -1,11 +1,11 @@
 {
-    "name": "httpserver",
+    "name": "intermediate",
     "version": "1.0.0",
     "description": "",
-    "main": "server.js",
+    "main": "interm.js",
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "express": "latest"
+        "amqplib": "latest"
     }
 }

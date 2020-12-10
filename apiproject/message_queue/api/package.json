@@ -1,11 +1,13 @@
 {
-    "name": "httpserver",
+    "name": "api",
     "version": "1.0.0",
     "description": "",
-    "main": "server.js",
+    "main": "rest.js",
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "express": "latest"
+        "express": "latest",
+        "amqp":"latest"
+        
     }
 }

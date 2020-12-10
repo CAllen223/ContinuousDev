@@ -1,11 +1,11 @@
 {
-    "name": "httpserver",
+    "name": "original",
     "version": "1.0.0",
     "description": "",
-    "main": "server.js",
+    "main": "orig.js",
     "author": "",
     "license": "ISC",
     "dependencies": {
-        "express": "latest"
+        "amqplib": "latest"
     }
-}
+  }

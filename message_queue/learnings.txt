@@ -1,8 +1,6 @@
-The main benefits in my mind of the topic based response is that you can control who can get your messages better, 
-like sending one that only some of your contacts are meant to see, and to avoid the work that would come along with it.Aside from this 
-you have the rabbitmw interface where you can test your connections before you implement them and bind queues to the exchanges there, as 
-well as monitor connections made from scripts.
+all api features implemented aside from  PUT /state. Reason for this is that trying to create the channel to consume the amqp messages sent by
+the api causes an error: inequivalent arg 'auto_delete' for queue. Note that trying to get logs from the httpserv will cause that service to crash as 
+with the orig service being modified for this assignment to only send messages after it has first consumed the channel. This means that the observer does not create the file that 
+the httpserv needs.
 
-My main learnings from this assignment was how to use the rabibtmq technology, and further understanding of how docker-compose works.
-The hardest part was learning how to read and write to files in the docker container, as well as timing the services so that they don't 
-try to access something that isn't ready yet. For this end I used a 3rd part solution the wait-for-it.sh  
+None of the optional features implemented nor a test fie or framework
